@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
- 
 // Kitamasa's algorithm
 // Need to define '+' and '*' on T
 template<typename T, T (*zero)(), T (*one)()>
@@ -49,6 +46,5 @@ int one() { return (int)(1);}
 
 int main() {
   kitamasa<int, zero, one> d({1,1});
-  for (int i=0;i<13;++i) cout<<d.calc({1,1},i)<<endl;
   return 0;
 }
