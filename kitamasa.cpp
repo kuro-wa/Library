@@ -47,4 +47,4 @@ int one() { return (int)(1);}
 int main() {
   kitamasa<int, zero, one> d({1,1});
   return 0;
-} 
+}
