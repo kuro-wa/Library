@@ -1,5 +1,5 @@
-// AtCoder
 // combination mod prime
+// AtCoder
 // https://www.youtube.com/watch?v=8uowVvQ_-Mo&feature=youtu.be&t=1619
 struct combination {
   vector<mint> fact, ifact;
