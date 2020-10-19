@@ -23,8 +23,8 @@ struct mf_graph {
     vector<int> level(_n), iter(_n);
     auto bfs = [&]() {
       fill(level.begin(), level.end(), -1);
-      level[s] = 0;
       queue<int> que;
+      level[s] = 0;
       que.push(s);
       while (!que.empty()) {
         int v = que.front(); que.pop();
