@@ -28,7 +28,7 @@ struct mf_graph {
       que.push(s);
       while (!que.empty()) {
         int v = que.front(); que.pop();
-        for (auto e : g[v]) {
+        for (auto& e : g[v]) {
           if (e.cap == 0 || level[e.to] >= 0) continue;
           level[e.to] = level[v]+1;
           if (e.cap ==  t) return;
