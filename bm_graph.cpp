@@ -57,9 +57,9 @@ struct bm_graph {
       flow += f;
     }
   }
-  int get_pair(int n) {
-    assert(0 <= n && n < _n+_m);
-    return match[n];
+  int get_pair(int i) {
+    assert(0 <= i && i < _n+_m);
+    return match[i];
   }
  private:
   int _n, _m;
