@@ -12,7 +12,7 @@ struct fenwick_tree {
   T sum(int l, int r) {
     assert(0 <= l && l < _n);
     assert(l <= r && r <= _n);
-    return sum(r) - sum(l);
+    return sum(r)-sum(l);
   }
  private:
   int _n;
