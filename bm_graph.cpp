@@ -34,14 +34,11 @@ struct bm_graph {
       used[v] = 1;
       for (auto& u : g[v]) {
         int w = d[u];
-        if (w >= 0) {
-          if (used[w]) continue;
-          if (level[w] != level[v]+1) continue;
-          if (!dfs(w)) continue;
+        if (w < 0 || (!used[w] && level[w] > level[v] && dfs(w))) {
+          d[v] = u;
+          d[u] = v;
+          return true;
         }
-        d[v] = u;
-        d[u] = v;
-        return true;
       }
       return false;
     };
