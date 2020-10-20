@@ -3,7 +3,7 @@
 struct bm_graph {
  public:
   bm_graph(int n, int m)
-    : _n(n), _m(m), g(n), match(n+m, -1) {}
+    : _n(n), _m(m), g(n), d(n+m, -1) {}
   void add_edge(int from, int to) {
     assert(0 <= from && from < _n);
     assert(_n <= to && to < _n+_m);
@@ -15,15 +15,15 @@ struct bm_graph {
       fill(level.begin(), level.end(), -1);
       queue<int> que;
       for (int i = 0; i < _n; ++i) {
-        if (match[i] == -1) {
-          que.push(i);
+        if (d[i] == -1) {
           level[i] = 0;
+          que.push(i);
         }
       }
       while (!que.empty()) {
         int v = que.front(); que.pop();
         for (auto& u : g[v]) {
-          int w = match[u];
+          int w = d[u];
           if (w < 0 || level[w] >= 0) continue;
           level[w] = level[v]+1;
           que.push(w);
@@ -33,14 +33,14 @@ struct bm_graph {
     function<bool(int)> dfs = [&](int v) {
       used[v] = 1;
       for (auto& u : g[v]) {
-        int w = match[u];
+        int w = d[u];
         if (w >= 0) {
           if (used[w]) continue;
           if (level[w] != level[v]+1) continue;
           if (!dfs(w)) continue;
         }
-        match[v] = u;
-        match[u] = v;
+        d[v] = u;
+        d[u] = v;
         return true;
       }
       return false;
@@ -51,18 +51,19 @@ struct bm_graph {
       fill(used.begin(), used.end(), 0);
       int f = 0;
       for (int i = 0; i < _n; ++i) {
-        if (match[i] == -1 && dfs(i)) ++f;
+        if (d[i] == -1 && dfs(i)) ++f;
       }
-      if (f == 0) return flow;
+      if (!f) break;
       flow += f;
     }
+    return flow;
   }
-  int get_pair(int i) {
+  int match(int i) {
     assert(0 <= i && i < _n+_m);
-    return match[i];
+    return d[i];
   }
  private:
   int _n, _m;
   vector<vector<int>> g;
-  vector<int> match;
+  vector<int> d;
 };
