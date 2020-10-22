@@ -99,16 +99,12 @@ struct lazy_segtree {
   }
 };
 // Rewrite the following!!
-struct S {
-  ll x; int l;
-  S(ll x=0LL, int l=1) : x(x), l(l) {}
-};
-using F = ll;
-
-S op(S a, S b) { return S(a.x+b.x, a.l+b.l);}
-S e() { return S(0LL, 0);}
-S mapping(F f, S s) { return S(s.x+s.l*f, s.l);}
+using S = int;
+using F = int;
+S op(S a, S b) { return min(a, b);}
+S e() { return 1001001001;}
+S mapping(F f, S s) { return f+s;}
 F composition(F f, F g) { return f+g;}
-F id() { return 0LL;}
+F id() { return F(0);}
 using lseg = lazy_segtree<S, op, e, F, mapping, composition, id>;
 //
