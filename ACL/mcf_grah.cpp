@@ -58,7 +58,7 @@ public:
       }
       if (!vis[t]) return false;
       for (int v = 0; v < _n; ++v) {
-        if (!vis[v]) false;
+        if (!vis[v]) continue;
         dual[v] -= dist[t]-dist[v];
       }
       return true;
