@@ -6,8 +6,8 @@ struct bm_graph {
     : _n(n), _m(m), g(n), d(n+m, -1) {}
   void add_edge(int from, int to) {
     assert(0 <= from && from < _n);
-    assert(_n <= to && to < _n+_m);
-    g[from].push_back(to);
+    assert(0 <= to && to < _m);
+    g[from].push_back(_n+to);
   }
   int calc() {
     vector<int> level(_n), used(_n);
@@ -55,9 +55,13 @@ struct bm_graph {
     }
     return flow;
   }
-  int match(int i) {
-    assert(0 <= i && i < _n+_m);
+  int match_left(int i) {
+    assert(0 <= i && i < _n);
     return d[i];
+  }
+  int match_right(int i) {
+    assert(0 <= i && i < _m);
+    return d[_n+i];
   }
  private:
   int _n, _m;
