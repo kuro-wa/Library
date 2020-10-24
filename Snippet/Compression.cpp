@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#define rep(i, n) for (int i = 0; i < (n); ++i)
 using namespace std;
+#define rep(i, n) for (int i = 0; i < (n); ++i)
 using ll = long long;
 
 template<typename T>
@@ -27,6 +27,6 @@ int main(){
   vector<int> xs, ys;
   xs = compress(as);
   ys = compress(bs);
-  auto mpX = dict(xs), mpY = dictY;
+  auto mpx = dict(xs), mpy = dict(ys);
   return 0;
 }
