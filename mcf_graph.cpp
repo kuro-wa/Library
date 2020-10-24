@@ -18,7 +18,22 @@ public:
     g[to].push_back(_edge{from, from_id, 0, -cost});
     return m;
   }
-  struct edge { int to, rev; Cap cap; Cost cost;};
+  struct edge { int to, rev; Cap cap, flow; Cost cost;};
+  edge get_edge(int i) {
+    int m = int(pos.size());
+    assert(0 <= i && i < m);
+    auto& _e = g[pos[i].first][pos[i].second];
+    auto& _re = g[_e.to][_e.rev];
+    return edge{pos[i].first, _e.to, _e.cap+_re.cap, _re.cap, _e.cost};
+  }
+  vector<edge> edges() {
+    int m = int(pos.size());
+    vector<edge> res(m);
+    for (int i = 0; i < m; ++i) {
+      res[i] = get_edge(i);
+    }
+    return res;
+  }
   pair<Cap, Cost> flow(int s, int t, Cap flow_limit=numeric_limits<Cap>::max) {
     return slope(s, t, flow_limit).back();
   }
