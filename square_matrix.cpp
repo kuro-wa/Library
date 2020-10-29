@@ -26,7 +26,7 @@ struct square_matrix {
   mat& operator-=(const mat& rhs) {
     for (int i = 0; i < m; ++i) {
       for (int j = 0; j < m; ++j) {
-        d[i][j] = d[i][j]+rhs.d[i][j];
+        d[i][j] = d[i][j]-rhs.d[i][j];
       }
     }
     return *this;
