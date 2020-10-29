@@ -38,10 +38,10 @@ struct Sieve {
   }
   // Returns prime foctorization of x
   // res[i]: (i-th prime factor, the index)
-  vector<pait<int, int>> factor(int x) {
+  vector<pair<int, int>> factor(int x) {
     vector<int> fl = factorList(x);
     if (fl.size() == 0) return {};
-    vector<pair<int, int>> res(1, pait<int, int>(fl[0], 0));
+    vector<pair<int, int>> res(1, pair<int, int>(fl[0], 0));
     for (int p : fl) {
       if (res.back().first == p) {
         res.back().second++;
