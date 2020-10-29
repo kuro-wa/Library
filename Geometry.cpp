@@ -50,7 +50,10 @@ struct Circle {
     return {leg+v*(y/d), leg-v*(y/d)};
   }
   bool include(const V& p) {
-    return (p-o).norm() < r+eps;
+    return (p-o).sqnorm() < r*r+eps;
+  }
+  bool include(const Circle& c) {
+    return (c.o-o).sqnorm() < (r-c.r)*(r-c.r)+eps;
   }
 };
 
