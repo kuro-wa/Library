@@ -26,6 +26,26 @@ struct dsu {
     assert(0 <= a && a < _n);
     return -d[leader(a)];
   }
+  vector<vector<int>> groups() {
+    vector<int> leader_buf(_n), group_size(_n);
+    for (int i = 0; i < _n; ++i) {
+      leader_buf[i] = leader(i);
+      ++group_size[leader_buf[i]];
+    }
+    vector<vector<int>> res(_n);
+    for (int i = 0; i < _n; ++i) {
+      res[i].reserve(group_size[i]);
+    }
+    for (int i = 0; i < _n; ++i) {
+      res[leader_buf[i]].push_back(i);
+    }
+    res.erase(
+      remove_if(res.begin(), res.end(),
+        [&](const vector<int>& v) { return v.empty();}
+      ), res.end()
+    );
+    return res;
+  }
  private:
   int _n;
   vector<int> d;
