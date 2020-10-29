@@ -1,5 +1,4 @@
 // Sieve of Eratosthenes
-// AtCoder
 // https://youtu.be/UTVg7wzMWQc?t=2774
 struct Sieve {
   int n; // the max num
