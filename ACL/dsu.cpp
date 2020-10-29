@@ -1,4 +1,4 @@
-// DSU (Disjoint Det Union, Union-Find)
+// DSU (Disjoint Set Union, Union-Find)
 struct dsu {
  public:
   dsu(int n=0) : _n(n), d(n, -1) {}
