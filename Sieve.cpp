@@ -63,6 +63,7 @@ struct Sieve {
     return res;
   }
 };
+//
  
 int main() {
   Sieve s(1000005);
