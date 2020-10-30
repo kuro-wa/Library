@@ -62,10 +62,5 @@ struct Sieve {
     if (x != 1) res.emplace_back(x,1);
     return res;
   }
-};
+} s(1000005);
 //
-
-int main() {
-  Sieve s(1000005);
-  return 0;
-}
