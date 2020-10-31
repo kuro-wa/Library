@@ -1,7 +1,7 @@
 // Returns a map of (a divior of n, Moebius function)
 // O(sqrt(n))
-vector<pair<long long, int>> moebius(long long n) {
-  vector<pair<long long, int>> res;
+map<long long, int> moebius(long long n) {
+  map<long long, int> res;
   vector<long long> primes;
   // Enumerate prime foctors of n
   for (ll i = 2; i*i <= n; ++i) {
@@ -20,7 +20,7 @@ vector<pair<long long, int>> moebius(long long n) {
         d *= primes[i];
       }
     }
-    res.emplace_back(d, m);
+    res[d] = m;
   }
   return res;
 }
