@@ -27,28 +27,22 @@ struct Sieve {
   }
   // Returns prime foctorization of x (<= n)
   // res[i]: (i-th prime factor, the index)
-  vector<pair<int, int>> factor(int x) {
+  map<int, int> factor(int x) {
     vector<int> fl = factorList(x);
     if (fl.size() == 0) return {};
-    vector<pair<int, int>> res(1, pair<int, int>(fl[0], 0));
-    for (int p : fl) {
-      if (res.back().first == p) {
-        res.back().second++;
-      } else {
-        res.emplace_back(p, 1);
-      }
-    }
+    map<int, int> res;
+    for (int p : fl) ++res[p];
     return res;
   }
   // for long long x (<= n*n)
-  vector<pair<long long,int>> factor(long long x) {
-    vector<pair<long long,int>> res;
+  map<long long,int> factor(long long x) {
+    map<long long,int> res;
     for (int p : primes) {
       int y = 0;
       while (x%p == 0) x /= p, ++y;
-      if (y != 0) res.emplace_back(p,y);
+      if (y != 0) res[p] = y;
     }
-    if (x != 1) res.emplace_back(x,1);
+    if (x != 1) res[x] =1;
     return res;
   }
   // Enumerates divisors of n
@@ -77,5 +71,5 @@ struct Sieve {
     }
     return res;
   }
-} s(1000005);
+} s(1000005);;
 //
