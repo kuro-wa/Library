@@ -43,7 +43,7 @@ struct bm_graph {
       return false;
     };
     int flow = 0;
-    while (1) {
+    for (;;) {
       bfs();
       fill(used.begin(), used.end(), 0);
       int f = 0;
