@@ -19,12 +19,20 @@ struct scc_graph {
     for (int i = 0; i < _n; ++i) {
       groups[ids.second[i]].push_back(i);
     }
-    return groups;
+    return comps = groups;
+  }
+  vector<int> order() {
+    vector<int> res(_n);
+    for (int i = 0; i < int(comps.size()); ++i) {
+      for (int j : comps[i]) res[j] = i;
+    }
+    return res;
   }
  private:
   int _n;
   struct edge { int to;};
   vector<pair<int, edge>> edges;
+  vector<vector<int>> comps;
   template<class E> struct csr {
     vector<int> start;
     vector<E> elist;
