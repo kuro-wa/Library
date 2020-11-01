@@ -30,11 +30,11 @@ struct bm_graph {
         }
       }
     };
-    function<bool(int)> dfs = [&](int v) {
+    auto dfs = [&](auto self, int v)->bool {
       used[v] = 1;
       for (auto& u : g[v]) {
         int w = d[u];
-        if (w < 0 || (!used[w] && level[w] > level[v] && dfs(w))) {
+        if (w < 0 || (!used[w] && level[w] > level[v] && self(self, w))) {
           d[v] = u;
           d[u] = v;
           return true;
@@ -48,7 +48,7 @@ struct bm_graph {
       fill(used.begin(), used.end(), 0);
       int f = 0;
       for (int i = 0; i < _n; ++i) {
-        if (d[i] == -1 && dfs(i)) ++f;
+        if (d[i] == -1 && dfs(dfs, i)) ++f;
       }
       if (!f) break;
       flow += f;
