@@ -20,7 +20,6 @@ struct scc_graph {
       groups[ids.second[i]].push_back(i);
     }
     return groups;
-    return {{}};
   }
  private:
   int _n;
