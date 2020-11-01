@@ -11,7 +11,6 @@ vector<double> gauss_jordan(const vector<vector<double>>& A, const vector<double
     for (int j = 0; j < n; ++j) B[i][j] = A[i][j];
     B[i][n] = b[i];
   }
-
   for (int i = 0; i < n; ++i) {
     // Bring max-abs-coefficient formula to row i
     int pivot = i;
