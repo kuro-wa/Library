@@ -3,7 +3,7 @@ template<typename T>
 struct RSQ {
   using F = T;
  public:
-  RSQ(int n=0) : t(n) {}
+  RSQ(int n=0) : RSQ(vector<T>(n, T(0))) {}
   RSQ(const vector<T>& v) {
     int n = int(v.size());
     vector<S> w(n, S());
@@ -29,3 +29,4 @@ struct RSQ {
   using lseg = lazy_segtree<S, op, e, F, mapping, composition, id>;
   lseg t;
 };
+//
