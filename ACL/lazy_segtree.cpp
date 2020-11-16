@@ -101,10 +101,13 @@ struct lazy_segtree {
 // Rewrite the following!!
 using S = int;
 using F = int;
+const S IE = 1001001001;
 S op(S a, S b) { return min(a, b);}
-S e() { return 1001001001;}
+S e() { return IE;}
 S mapping(F f, S s) { return f+s;}
 F composition(F f, F g) { return f+g;}
 F id() { return F(0);}
 using lseg = lazy_segtree<S, op, e, F, mapping, composition, id>;
+  vector<S> vec(n, S(0));
+  lseg d(vec);
 //
