@@ -9,14 +9,14 @@ struct RSQ {
     int n = int(v.size());
     vector<S> w(n, S());
     for (int i = 0; i < n; ++i) w[i].x = v[i];
-    t = lseg(w);
+    d = lseg(w);
   }
-  void set(int p, T x) { t.set(p, S(x, 1));}
-  T get(int p) { return t.get(p).x;}
-  T prod(int l, int r) { return t.prod(l, r).x;}
-  T all_prod() { return t.all_prod().x;}
-  void apply(int p, F f) { t.apply(p, f);}
-  void apply(int l, int r, F f) { t.apply(l, r, f);}
+  void set(int p, T x) { d.set(p, S(x, 1));}
+  T get(int p) { return d.get(p).x;}
+  T prod(int l, int r) { return d.prod(l, r).x;}
+  T all_prod() { return d.all_prod().x;}
+  void apply(int p, F f) { d.apply(p, f);}
+  void apply(int l, int r, F f) { d.apply(l, r, f);}
  private:
   struct S {
     T x; int l;
@@ -28,6 +28,6 @@ struct RSQ {
   static F composition(F f, F g) { return f+g;}
   static F id() { return F(0);}
   using lseg = lazy_segtree<S, op, e, F, mapping, composition, id>;
-  lseg t;
+  lseg d;
 };
 //
