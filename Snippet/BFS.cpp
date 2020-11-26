@@ -14,7 +14,7 @@ int main() {
   auto push = [&](int v, int d) {
     if (dist[v] != INF) return;
     dist[v] = d;
-    q.push(v);
+    q.emplace(v);
   };
 
   int s = 0; // the start
