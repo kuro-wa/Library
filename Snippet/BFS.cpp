@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-using ll = long long;
 
 const int INF = 1001001001;
 
@@ -13,17 +11,18 @@ int main() {
 
   vector<int> dist(n, INF);
   queue<int> q;
-  auto push = [&](int v, int d) {
-    if (dist[v] != INF) return;
-    dist[v] = d;
-    q.push(v);
-  };
+
   int s = 0; // the start
-  push(s, 0);
+  dist[s] = 0;
+  q.push(s);
+
   while (!q.empty()){
     int v = q.front(); q.pop();
     for (int u: to[v]) {
-      push(u, dist[v]+1);
+      if (dist[u] != INF) continue;
+      dist[u] = dist[v]+1;
+      q.push(u);
     }
   }
+  return 0;
 }
