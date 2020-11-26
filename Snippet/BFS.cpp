@@ -11,17 +11,19 @@ int main() {
 
   vector<int> dist(n, INF);
   queue<int> q;
+  auto push = [&](int v, int d) {
+    if (dist[v] != INF) return;
+    dist[v] = d;
+    q.push(v);
+  };
 
   int s = 0; // the start
-  dist[s] = 0;
-  q.push(s);
+  push(s, 0);
 
   while (!q.empty()){
     int v = q.front(); q.pop();
     for (int u: to[v]) {
-      if (dist[u] != INF) continue;
-      dist[u] = dist[v]+1;
-      q.push(u);
+      push(u, dist[v]+1);
     }
   }
   return 0;
