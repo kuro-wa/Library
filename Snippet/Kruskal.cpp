@@ -1,5 +1,5 @@
-// AntBook p101
 // Kruskal's algorithm
+// AntBook p101
 #include <bits/stdc++.h>
 using namespace std;
 #include <atcoder/all>
