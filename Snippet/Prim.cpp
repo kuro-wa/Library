@@ -3,16 +3,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct E {
-  int to, co;
-  E(int to=0, int co=0) : to(to), co(co) {}
+struct Edge {
+  int to, cost;
+  Edge(int to=0, int cost=0) : to(to), cost(cost) {}
 };
 const long long LINF = 1001002003004005006ll;
 
 int main() {
   int n; // num of vertexes
   cin >> n;
-  vector<vector<E>> g(n);
+  vector<vector<Edge>> g(n);
   // Input edges here
 
   vector<long long> mincost(n, LINF); // min cost from set X
@@ -22,9 +22,9 @@ int main() {
     if (mincost[v] != LINF) return;
     mincost[v] = d;
     res += d;
-    for (E e : g[v]) {
+    for (Edge e : g[v]) {
       if (mincost[e.to] != LINF) continue;
-      q.emplace(e.co, e.to);
+      q.emplace(e.cost, e.to);
     }
   };
   push(0, 0);

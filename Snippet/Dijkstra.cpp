@@ -3,16 +3,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct E {
-  int to, co;
-  E(int to=0, int co=0) : to(to), co(co) {}
+struct Edge {
+  int to, cost;
+  Edge(int to=0, int cost=0) : to(to), cost(cost) {}
 };
 const long long LINF = 1001002003004005006ll;
 
 int main() {
   int n; // num of vertexes
   cin >> n;
-  vector<vector<E>> g(n);
+  vector<vector<Edge>> g(n);
   // Input edges here
 
   // Regular Dijkstra
@@ -30,8 +30,8 @@ int main() {
     while (!q.empty()) {
       auto [d, v] = q.top(); q.pop();
       if (dist[v] != d) continue;
-      for (E e : g[v]) {
-        push(e.to, d+e.co);
+      for (Edge e : g[v]) {
+        push(e.to, d+e.cost);
       }
     }
   }
@@ -53,8 +53,8 @@ int main() {
     while (!q.empty()) {
       auto [d, v] = q.top(); q.pop();
       if (dist[v] != d) continue;
-      for (E e: g[v]) {
-        push(e.to, d+e.co, v);
+      for (Edge e: g[v]) {
+        push(e.to, d+e.cost, v);
       }
     }
     int t = n-1; // the goal
