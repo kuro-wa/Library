@@ -22,7 +22,7 @@ int main() {
   sort(es.begin(), es.end());
   dsu d(n);
   long long res = 0; // total cost
-  for (E e: es) {
+  for (E e : es) {
     if (!d.same(e.u, e.v)) {
       d.merge(e.u, e.v);
       res += e.co;
