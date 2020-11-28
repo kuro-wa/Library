@@ -1,37 +1,32 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-using ll = long long;
-
-[UnionFind]
-
 // AntBook p101
 // Kruskal's algorithm
-struct Edge {
+#include <bits/stdc++.h>
+using namespace std;
+#include <atcoder/all>
+using namespace atcoder;
+
+struct E {
   int u, v;
-  ll cost;
-  Edge(int u=0, int v=0, ll cost=0): 
-    u(u), v(v), cost(cost) {}
-  bool operator<(const Edge& e) const {
-    return cost < e.cost;
+  long long co;
+  E(int u=0, int v=0, long long co=0) : u(u), v(v), co(co) {}
+  bool operator<(const E& e) const {
+    return co < e.co;
   }
 };
 
 int main() {
-  int V; // num of vertexes
-  int E; // num of edges
-  vector<Edge> es(E); 
+  int n; // num of vertexes
+  vector<E> es; // edges
   // Input edges here
 
   sort(es.begin(), es.end());
-  UnionFind uf(V);
-  ll res = 0;
-  for (Edge e: es) {
-    if (!uf.same(e.u, e.v)) {
-      uf.unite(e.u, e.v);
-      res += e.cost;
+  dsu d(n);
+  long long res = 0; // total cost
+  for (E e: es) {
+    if (!d.same(e.u, e.v)) {
+      d.merge(e.u, e.v);
+      res += e.co;
     }
   }
-  cout << res << endl;
   return 0;
 }
