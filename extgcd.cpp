@@ -1,5 +1,5 @@
-// AntBook p109
 // Solves a*x+b*y=gcd(a, b) and returns gcd(a, b)
+// AntBook p109
 template<typename T>
 T extgcd(T a, T b, T &x, T &y) {
   T d = a;
