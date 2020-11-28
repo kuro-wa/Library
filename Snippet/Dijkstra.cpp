@@ -30,7 +30,7 @@ int main() {
     while (!q.empty()) {
       auto [d, v] = q.top(); q.pop();
       if (dist[v] != d) continue;
-      for (E e: g[v]) {
+      for (E e : g[v]) {
         push(e.to, d+e.co);
       }
     }

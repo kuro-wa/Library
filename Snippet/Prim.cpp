@@ -22,7 +22,7 @@ int main() {
     if (mincost[v] != LINF) return;
     mincost[v] = d;
     res += d;
-    for (E e: g[v]) {
+    for (E e : g[v]) {
       if (mincost[e.to] != LINF) continue;
       q.emplace(e.co, e.to);
     }

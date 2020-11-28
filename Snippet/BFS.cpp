@@ -22,7 +22,7 @@ int main() {
 
   while (!q.empty()){
     int v = q.front(); q.pop();
-    for (int u: to[v]) {
+    for (int u : to[v]) {
       push(u, dist[v]+1);
     }
   }
