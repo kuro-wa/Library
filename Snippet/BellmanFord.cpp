@@ -1,55 +1,48 @@
-#include <bits/stdc++.h>
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-using namespace std;
-using ll = long long;
-using P = pair<int, int>;
-
-// AntBook p 95
 // Bellman-Ford algorithm
-const ll INF = 1e18;
+// AntBook p95
+#include <bits/stdc++.h>
+using namespace std;
 
 struct Edge {
   int from, to;
-  ll cost;
-  Edge(int from=0, int to=0, ll cost=0): 
-    from(from), to(to), cost(cost) {}
+  long long cost;
+  Edge(int from=0, int to=0, long long cost=0) : from(from), to(to), cost(cost) {}
 };
+const long long LINF = 1001002003004005006ll;
 
 int main() {
-  int V; // num of vertexes
-  int E; // num of edges
-  cin >> V >> E;
+  int n; // num of vertexes
+  cin >> n;
   vector<Edge> es; // edges
   // Input edges here
 
   // A function to execute Bellman-Ford algorithm
-  // Returns false if updated V-1 times
-  auto bermanford = [&](vector<ll> &d) {
-    rep(i, V) {
+  // Returns false if updated dist.size() times
+  auto bermanford = [&](vector<long long> &dist) {
+    for (int i = 0; i < (int)dist.size(); ++i) {
       for (Edge e: es){
-        if (d[e.from] == INF) continue;
-        if (d[e.to] <= d[e.from]+e.cost) continue;
-        d[e.to] = d[e.from]+e.cost;
-        if (i == V-1) return false;
+        if (dist[e.from] == LINF) continue;
+        if (dist[e.to] <= dist[e.from]+e.cost) continue;
+        dist[e.to] = dist[e.from]+e.cost;
+        if (i == (int)dist.size()-1) return false;
       }
     }
     return true;
   };
 
-  vector<ll> d;
+  vector<long long> dist;
 
   // Find a negative loop
-  d = vector<ll>(V);
-  if (!bermanford(d)) {
-    cout << "A negative loop exists." << endl;
-    return 0;
+  dist = vector<long long>(n);
+  if (!bermanford(dist)) {
+    // A negative loop exists!
+    // Do something
   }
 
-  // Compute shortest distances
-  d = vector<ll>(V, INF); // the shortest distances
+  // Find the shortest path
+  dist = vector<long long>(n, LINF);
   int s = 0; // the start
-  d[s] = 0;
-  bermanford(d);
-  rep(i, V) cout << d[i] << endl;
+  dist[s] = 0;
+  bermanford(dist);
   return 0;
 }
