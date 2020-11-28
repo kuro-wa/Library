@@ -2,15 +2,14 @@
 // AntBook p109
 template<typename T>
 T extgcd(T a, T b, T &x, T &y) {
-  T d = a;
-  if (b == 0) {
-    if (d > 0) x = 1;
-    else x = -1, d *= -1;
-    y = 0;
+  x = 1, y = 0;
+  T u = 0, v = 1;
+  while (b) {
+    T t = a/b;
+    a -= t*b; swap(a, b);
+    x -= t*u; swap(x, u);
+    y -= t*v; swap(y, v);
   }
-  else {
-    d = extgcd(b, a%b, y, x);
-    y -= (a/b)*x;
-  }
-  return d;
+  if (a < 0) x *= -1, y *= -1, a *= -1;
+  return a;
 }
