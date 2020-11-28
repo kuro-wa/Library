@@ -1,43 +1,36 @@
+// Prim's algorithm
+// AntBook p100
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-using ll = long long;
 
-// AntBook p100
-// Prim's algorithm
-using LP = pair<ll, int>;
-
-const ll INF = 1e18;
-
-struct Edge {
+struct E {
   int to, co;
-  Edge(int to = 0, int co = 0): to(to), co(co) {}
+  E(int to=0, int co=0) : to(to), co(co) {}
 };
+const long long LINF = 1001002003004005006ll;
 
 int main() {
   int n; // num of vertexes
   cin >> n;
-  vector<vector<Edge>> g(n);
+  vector<vector<E>> g(n);
   // Input edges here
 
-  vector<ll> mincost(n, INF);
-  priority_queue<LP, vector<LP>, greater<LP>> q;
-  ll res = 0;
-  auto push = [&](int v, ll x) {
-    if (mincost[v] != INF) continue;
-    mincost[v] = x;
-    res += x;
-    for (Edge e: g[v]) {
-      if (mincost[e.to] != INF) continue;
-      q.emplace(e.cost, e.to);
+  vector<long long> mincost(n, LINF); // min cost from set X
+  priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<pair<long long, int>>> q;
+  long long res = 0; // total cost
+  auto push = [&](int v, long long d) {
+    if (mincost[v] != LINF) return;
+    mincost[v] = d;
+    res += d;
+    for (E e: g[v]) {
+      if (mincost[e.to] != LINF) continue;
+      q.emplace(e.co, e.to);
     }
   };
   push(0, 0);
   while (!q.empty()) {
-    ll x = q.top().first;
-    int v = q.top().second;
-    q.pop();
-    push(v, x);
+    auto [d, v] = q.top(); q.pop();
+    push(v, d);
   }
   return 0;  
 }
