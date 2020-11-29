@@ -16,9 +16,9 @@ struct Sieve {
     }
   }
   // Returns whether x (<= n) is a prime num
-  bool isPrime(int x) { return f[x] == x;}
+  bool is_prime(int x) { return f[x] == x;}
   // for long long x (<= n*n)
-  bool isPrime(long long x) {
+  bool is_prime(long long x) {
     for (int p : primes) {
       if ((long long)p*p > x) break;
       if (x%p == 0) return false;
@@ -28,7 +28,7 @@ struct Sieve {
   // Returns prime foctorization of x (<= n)
   // res[i]: (i-th prime factor, the index)
   map<int, int> factor(int x) {
-    vector<int> fl = factorList(x);
+    vector<int> fl = factor_list(x);
     if (fl.size() == 0) return {};
     map<int, int> res;
     for (int p : fl) ++res[p];
@@ -62,7 +62,7 @@ struct Sieve {
   vector<int> f; // f[i]: the min prime factor of i
   // Returns prime foctors of x (<= n) in ascending order
   // ex. 24: {2, 2, 2, 3}
-  vector<int> factorList(int x) {
+  vector<int> factor_list(int x) {
     vector<int> res;
     while (x != 1) {
       res.emplace_back(f[x]);
