@@ -45,17 +45,6 @@ struct Sieve {
     if (x != 1) res[x] =1;
     return res;
   }
-  vector<long long> divisor(long long x) {
-    vector<long long> res;
-    for (long long i = 1; i*i <= x; ++i) {
-      if (x%i == 0) {
-        res.emplace_back(i);
-        if(i*i != x) res.emplace_back(x/i);
-      }
-    }
-    sort(res.begin(), res.end());
-    return res;
-  }
  private:
   int n;
   vector<int> f;
