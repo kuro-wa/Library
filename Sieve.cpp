@@ -70,5 +70,5 @@ struct Sieve {
     }
     return res;
   }
-} s(1000005);
+} d(1000005);
 //
