@@ -1,12 +1,9 @@
 // Segment Sieve of Erastothenes
 // AntBook p113
 struct SegmentSieve {
-  long long a, b;
-  // f[i], f2[i-a]: the min prime factor of i
-  // primes[i]: i-th prime num in [a, b) (0-indexed)
-  vector<int> f, f2;
-  vector<long long> primes;
-  SegmentSieve(long long a=0, long long b=1): a(a), b(b), f2(b-a) {
+ public:
+  SegmentSieve(long long a=0, long long b=1) : a(a), b(b), f2(b-a) {
+    assert(0 <= a && a < b);
     int n = 1;
     while ((long long)n*n < b) ++n;
     f.resize(n+1);
@@ -24,17 +21,20 @@ struct SegmentSieve {
     for (long long i = a; i < b; ++i) {
       if (i <= 1) f2[i-a] = -1;
       else if (!f2[i-a]) {
-        primes.push_back(i);
+        ps.emplace_back(i);
         f2[i-a] = i;
       }
     }
   }
-  // Returns whether x in [a, b) is a prime num
-  bool isPrime(long long x) { return f[x-a] == x;}
+  vector<long long> primes() { return ps;}
+  bool is_prime(long long x) {
+    assert(a <= x && x < b);
+    return f2[x-a] == x;
+  }
+ private:
+  long long a, b;
+  vector<int> f;
+  vector<long long> f2;
+  vector<long long> ps;
 };
 //
-
-int main() {
-  SegmentSieve s(0, 1000000);
-  return 0;
-}
