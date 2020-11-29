@@ -59,8 +59,7 @@ struct Sieve {
   }
  private:
   int n; // the max num
-  // f[i]: the min prime factor of i
-  vector<int> f;
+  vector<int> f; // f[i]: the min prime factor of i
   // Returns prime foctors of x (<= n) in ascending order
   // ex. 24: {2, 2, 2, 3}
   vector<int> factorList(int x) {
