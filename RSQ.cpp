@@ -1,4 +1,4 @@
-// RAQ (Range Add Query) and RSQ (Range Sum Query)
+// RSQ (Range Sum Query) and RAQ (Range Add Query)
 template<typename T>
 struct RSQ {
   using F = T;
