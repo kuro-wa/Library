@@ -9,6 +9,13 @@ struct fenwick_tree {
       d[p-1] += x;
     }
   }
+  T sum(int r) {
+    T res = 0;
+    for (; r; r -= r&-r) {
+      res += d[r-1];
+    }
+    return res;
+  }
   T sum(int l, int r) {
     assert(0 <= l && l <= r && r <= _n);
     return sum(r)-sum(l);
@@ -16,11 +23,4 @@ struct fenwick_tree {
  private:
   int _n;
   vector<T> d;
-  T sum(int r) {
-    T s = 0;
-    for (; r; r -= r&-r) {
-      s += d[r-1];
-    }
-    return s;
-  }
 };
