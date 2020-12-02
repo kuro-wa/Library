@@ -12,7 +12,6 @@ struct segtree {
       update(i);
     }
   }
-  S& operator[](int p) { return d[p+size];}
   void set(int p, S x) {
     assert(0 <= p && p < _n);
     d[p += size] = x;
