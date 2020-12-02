@@ -1,5 +1,4 @@
 // RAQ (Range Add Query) and RSQ (Range Sum Query)
-// by Lazy Segtree
 template<typename T>
 struct RSQ {
   using F = T;
