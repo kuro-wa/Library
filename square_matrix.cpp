@@ -1,5 +1,4 @@
-// square matrix
-// Need to define '+' and '*' on T
+// Square Matrix
 template<typename T, T (*zero)(), T (*one)()>
 struct square_matrix {
   using mat = square_matrix;
@@ -11,10 +10,14 @@ struct square_matrix {
   square_matrix(T a=zero()) : d(vector<vector<T>>(m, vector<T>(m, zero()))) {
     for (int i = 0; i < m; ++i) d[i][i] = a;
   }
-  square_matrix(const vector<vector<T>>& v) : d(v){}
+  square_matrix(const vector<vector<T>>& v) : d(v) {
+    assert((int)v.size() == m && (int)v[0].size() == m);
+  }
   int size() { return m;}
-  T get(int r, int c) { return d[r][c];}
-  void set(int r, int c, T a) { d[r][c] = a;}
+  vector<T>& operator[](int r) {
+    assert(0 <= r && r < m);
+    return d[r];
+  }
   mat& operator+=(const mat& rhs) {
     for (int i = 0; i < m; ++i) {
       for (int j = 0; j < m; ++j) {
@@ -43,8 +46,16 @@ struct square_matrix {
     d = res;
     return *this;
   }
+  mat& operator*=(const T& a) {
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < m; ++j) {
+        d[i][j] = d[i][j]*a;
+      }
+    }
+    return *this;
+  }
   vector<T> operator*(const vector<T>& v) const {
-    assert((int)(v.size()) == m);
+    assert((int)v.size() == m);
     vector<T> res(m, zero());
     for (int i = 0; i < m; ++i) {
       for (int j = 0; j < m; ++j) {
@@ -77,21 +88,19 @@ struct square_matrix {
   friend mat operator+(const mat& lhs, const mat& rhs) { return mat(lhs) += rhs;}
   friend mat operator-(const mat& lhs, const mat& rhs) { return mat(lhs) -= rhs;}
   friend mat operator*(const mat& lhs, const mat& rhs) { return mat(lhs) *= rhs;}
-  friend vector<T> operator*(const vector<T>& v, const mat& rhs) { return rhs*v;}
+  friend mat operator*(const mat& lhs, const T& a) { return mat(lhs) *= a;}
+  friend mat operator*(const T& a, const mat& rhs) { return mat(rhs) *= a;}
+  friend vector<T> operator*(const vector<T>& v, const mat& rhs) { return mat(rhs).transpose()*v;}
  private:
   vector<vector<T>> d;
-  static unsigned int m;
+  static int m;
 };
 // Rewrite the following!!
 template<typename T, T (*zero)(), T (*one)()>
-unsigned int square_matrix<T, zero, one>::m = 305;
-int zero() { return (int)(0);}
-int one() { return (int)(1);}
-using mat = square_matrix<int, zero, one>;
-// Start with "mat::set_size" if you need!!
+int square_matrix<T, zero, one>::m = 305;
+using T = int;
+T zero() { return T(0);}
+T one() { return T(1);}
+using mat = square_matrix<T, zero, one>;
+// Start with "mat::set_size(size);" if you need to!!
 //
-
-int main() {
-  mat::set_size(3);
-  return 0;
-}
