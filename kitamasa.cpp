@@ -1,18 +1,18 @@
-// Kitamasa's algorithm
-// Need to define '+' and '*' on T
+// Kitamasa Method
 template<typename T, T (*zero)(), T (*one)()>
 struct kitamasa {
  public:
-  kitamasa(const vector<T>& v) : cs(v), rs(1), m(v.size()) {
+  kitamasa(const vector<T>& v) : m(v.size()), cs(v), rs(1) {
+    assert((int)v.size() >= 1);
     rs[0] = vector<T>(2*m+1, zero());
     rs[0][1] = one();
   }
   T calc(const vector<T>& a, long long n) {
-    assert((int)(a.size()) == m && n >= 0);
+    assert((int)a.size() == m && n >= 0);
     vector<T> res(rs[0]);
     for (int i = 0; n; ++i, n >>= 1) {
-      if (i >= (int)(rs.size())) {
-        rs.push_back(merge(rs[i-1], rs[i-1]));
+      if (i >= (int)rs.size()) {
+        rs.emplace_back(merge(rs[i-1], rs[i-1]));
       }
       if (n&1) res = merge(res, rs[i]);
     }
@@ -21,9 +21,9 @@ struct kitamasa {
     return ans;
   }
  private:
+  int m;
   vector<T> cs;
   vector<vector<T>> rs;
-  int m;
   vector<T> merge(const vector<T>& xs, const vector<T>& ys) {
     vector<T> zs(2*m+1, zero());
     for (int i = 1; i <= m; ++i) {
@@ -40,11 +40,7 @@ struct kitamasa {
   }
 };
 // Rewrite the following!!
-int zero() { return (int)(0);}
-int one() { return (int)(1);}
+using T = mint;
+T zero() { return T(0);}
+T one() { return T(1);}
 //
-
-int main() {
-  kitamasa<int, zero, one> d({1,1});
-  return 0;
-}
