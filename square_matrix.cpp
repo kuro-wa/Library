@@ -3,42 +3,42 @@ template<typename T, T (*zero)(), T (*one)()>
 struct square_matrix {
   using mat = square_matrix;
  public:
-  static void set_size(int m_) {
-    assert(m_ >= 1);
-    m = m_;
+  static void set_size(int sz) {
+    assert(sz >= 1);
+    _size = sz;
   }
-  square_matrix(T a=zero()) : d(vector<vector<T>>(m, vector<T>(m, zero()))) {
-    for (int i = 0; i < m; ++i) d[i][i] = a;
+  static int size() { return _size;}
+  square_matrix(T a=zero()) : d(vector<vector<T>>(_size, vector<T>(_size, zero()))) {
+    for (int i = 0; i < _size; ++i) d[i][i] = a;
   }
   square_matrix(const vector<vector<T>>& v) : d(v) {
-    assert((int)v.size() == m && (int)v[0].size() == m);
+    assert((int)v.size() == _size && (int)v[0].size() == _size);
   }
-  int size() { return m;}
   vector<T>& operator[](int r) {
-    assert(0 <= r && r < m);
+    assert(0 <= r && r < _size);
     return d[r];
   }
   mat& operator+=(const mat& rhs) {
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
         d[i][j] = d[i][j]+rhs.d[i][j];
       }
     }
     return *this;
   }
   mat& operator-=(const mat& rhs) {
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
         d[i][j] = d[i][j]-rhs.d[i][j];
       }
     }
     return *this;
   }
   mat& operator*=(const mat& rhs) {
-    vector<vector<T>> res(m, vector<T>(m, zero()));
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
-        for (int k = 0; k < m; ++k) {
+    vector<vector<T>> res(_size, vector<T>(_size, zero()));
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
+        for (int k = 0; k < _size; ++k) {
           res[i][j] = res[i][j]+d[i][k]*rhs.d[k][j];
         }
       }
@@ -47,18 +47,18 @@ struct square_matrix {
     return *this;
   }
   mat& operator*=(const T& a) {
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
         d[i][j] = d[i][j]*a;
       }
     }
     return *this;
   }
   vector<T> operator*(const vector<T>& v) const {
-    assert((int)v.size() == m);
-    vector<T> res(m, zero());
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
+    assert((int)v.size() == _size);
+    vector<T> res(_size, zero());
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
         res[i] = res[i]+d[i][j]*v[j];
       }
     }
@@ -78,8 +78,8 @@ struct square_matrix {
   }
   mat transpose() const {
     mat res();
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < m; ++j) {
+    for (int i = 0; i < _size; ++i) {
+      for (int j = 0; j < _size; ++j) {
         res.d[i][j] = d[j][i];
       }
     }
@@ -92,13 +92,13 @@ struct square_matrix {
   friend mat operator*(const T& a, const mat& rhs) { return mat(rhs) *= a;}
   friend vector<T> operator*(const vector<T>& v, const mat& rhs) { return mat(rhs).transpose()*v;}
  private:
+  static int _size;
   vector<vector<T>> d;
-  static int m;
 };
 // Rewrite the following!!
 template<typename T, T (*zero)(), T (*one)()>
-int square_matrix<T, zero, one>::m = 305;
-using T = int;
+int square_matrix<T, zero, one>::_size = 305;
+using T = mint;
 T zero() { return T(0);}
 T one() { return T(1);}
 using mat = square_matrix<T, zero, one>;
