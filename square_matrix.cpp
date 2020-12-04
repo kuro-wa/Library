@@ -102,5 +102,5 @@ using T = mint;
 T zero() { return T(0);}
 T one() { return T(1);}
 using mat = square_matrix<T, zero, one>;
-// Start with "mat::set_size(size);" if you need to!!
+// Start with "mat::set_size(size);"!!
 //
