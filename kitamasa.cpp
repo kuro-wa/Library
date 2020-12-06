@@ -1,5 +1,8 @@
+template<typename T> T _zero() { return T(0);}
+template<typename T> T _one() { return T(1);}
+
 // Kitamasa Method
-template<typename T, T (*zero)(), T (*one)()>
+template<typename T, T (*zero)()=_zero<T>, T (*one)()=_one<T>>
 struct kitamasa {
  public:
   kitamasa(const vector<T>& v) : m(v.size()), cs(v), rs(1) {
@@ -39,8 +42,4 @@ struct kitamasa {
     return zs;
   }
 };
-// Rewrite the following!!
-using T = mint;
-T zero() { return T(0);}
-T one() { return T(1);}
 //
