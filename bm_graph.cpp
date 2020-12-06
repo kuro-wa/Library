@@ -1,15 +1,14 @@
-// bipertite matching
-// O(E*sqrt(V)) (E: num of edges, V: num of vertexes)
+// Bipertite Matching
 struct bm_graph {
  public:
   bm_graph(int n, int m)
     : _n(n), _m(m), g(n), d(n+m, -1) {}
-  void add_edge(int from, int to) {
-    assert(0 <= from && from < _n);
-    assert(0 <= to && to < _m);
-    g[from].push_back(_n+to);
+  void add_edge(int u, int v) {
+    assert(0 <= u && u < _n);
+    assert(0 <= v && v < _m);
+    g[u].push_back(_n+v);
   }
-  int calc() {
+  int matching() {
     vector<int> level(_n), used(_n);
     auto bfs = [&]() {
       fill(level.begin(), level.end(), -1);
@@ -22,7 +21,7 @@ struct bm_graph {
       }
       while (!que.empty()) {
         int v = que.front(); que.pop();
-        for (auto& u : g[v]) {
+        for (int u : g[v]) {
           int w = d[u];
           if (w < 0 || level[w] >= 0) continue;
           level[w] = level[v]+1;
@@ -55,13 +54,14 @@ struct bm_graph {
     }
     return flow;
   }
-  int match_left(int i) {
-    assert(0 <= i && i < _n);
-    return d[i];
+  int pair_right(int u) {
+    assert(0 <= u && u < _n);
+    if (d[u] < 0) return -1;
+    return d[u]-_n;
   }
-  int match_right(int i) {
-    assert(0 <= i && i < _m);
-    return d[_n+i];
+  int pair_left(int v) {
+    assert(0 <= v && v < _m);
+    return d[_n+v];
   }
  private:
   int _n, _m;
