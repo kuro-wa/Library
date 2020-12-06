@@ -1,5 +1,8 @@
+template<typename T> T _zero() { return T(0);}
+template<typename T> T _one() { return T(1);}
+
 // Square Matrix
-template<typename T, T (*zero)(), T (*one)()>
+template<typename T, T (*zero)()=_zero<T>, T (*one)()=_one<T>>
 struct square_matrix {
   using mat = square_matrix;
  public:
@@ -95,12 +98,10 @@ struct square_matrix {
   static int _size;
   vector<vector<T>> d;
 };
-// Rewrite the following!!
 template<typename T, T (*zero)(), T (*one)()>
 int square_matrix<T, zero, one>::_size = 305;
+// Rewrite the following!!
 using T = mint;
-T zero() { return T(0);}
-T one() { return T(1);}
-using mat = square_matrix<T, zero, one>;
+using mat = square_matrix<T>;
 // Start with "mat::set_size(size);"!!
 //
