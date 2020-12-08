@@ -20,7 +20,7 @@ int main() {
   int s = 0; // the start
   push(s, 0);
 
-  while (!q.empty()){
+  while (!q.empty()) {
     int v = q.front(); q.pop();
     for (int u : to[v]) {
       push(u, dist[v]+1);
