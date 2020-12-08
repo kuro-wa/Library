@@ -1,7 +1,7 @@
 // Min Cost Flow
 template<typename Cap, typename Cost>
 struct mcf_graph {
-public:
+ public:
   mcf_graph(int n=0) : _n(n), g(n), negative(false) {}
   int add_edge(int from, int to, Cap cap, Cost cost){
     assert(0 <= from && from < _n);
@@ -43,30 +43,31 @@ public:
     Cost infinity = numeric_limits<Cost>::max();
     vector<Cost> dual(_n), dist(_n);
     vector<int> pv(_n), pe(_n), vis(_n);
-    auto bellmanford = [&]() {
+    if (negative) {
       fill(dist.begin(), dist.end(), infinity);
       dist[s] = 0;
       for (int cnt = 0; cnt < _n-1; ++cnt) {
         bool update = false;
         for (int v = 0; v < _n; ++v) {
           if (dist[v] == infinity) continue;
-          for (int i = 0; i < (int)g[v].size(); ++i) {
-            _edge& e = g[v][i];
-            if (e.cap > 0 && dist[e.to] > dist[v]+e.cost) {
+          for (_edge& e : g[v]) {
+            if (e.cap > 0 && dist[e.to]-dist[v] > e.cost) {
               dist[e.to] = dist[v]+e.cost;
-              pv[e.to] = v;
-              pe[e.to] = i;
               update = true;
             }
           }
         }
-        if(!update) break;
+        if (!update) break;
       }
       for (int v = 0; v < _n; ++v) {
-        if (dist[v] != infinity) vis[v] = 1;
+        dual[v] = dist[v]-dist[t];
       }
     };
-    auto dijkstra = [&]() {
+    auto dual_ref = [&]() {
+      fill(dist.begin(), dist.end(), infinity);
+      fill(pv.begin(), pv.end(), -1);
+      fill(pe.begin(), pe.end(), -1);
+      fill(vis.begin(), vis.end(), 0);
       struct Q {
         Cost key; int to;
         bool operator<(Q r) const { return key > r.key;}
@@ -90,23 +91,10 @@ public:
           }
         }
       }
-    };
-    auto dual_ref = [&]() {
-      fill(dist.begin(), dist.end(), infinity);
-      fill(pv.begin(), pv.end(), -1);
-      fill(pe.begin(), pe.end(), -1);
-      fill(vis.begin(), vis.end(), 0);
-      if (negative) {
-        bellmanford();
-        negative = false;
-      }
-      else {
-        dijkstra();
-      }
       if (!vis[t]) return false;
       for (int v = 0; v < _n; ++v) {
         if (!vis[v]) continue;
-        dual[v] -= dist[t]-dist[v];
+        dual[v] += dist[v]-dist[t];
       }
       return true;
     };
