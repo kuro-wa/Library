@@ -21,9 +21,9 @@ struct mcf_graph {
   edge get_edge(int i) {
     int m = (int)pos.size();
     assert(0 <= i && i < m);
-    _edge& _e = g[pos[i].first][pos[i].second];
-    _edge& _re = g[_e.to][_e.rev];
-    return edge{pos[i].first, _e.to, _e.cap+_re.cap, _re.cap, _e.cost};
+    _edge& e = g[pos[i].first][pos[i].second];
+    _edge& re = g[e.to][e.rev];
+    return edge{pos[i].first, e.to, e.cap+re.cap, re.cap, e.cost};
   }
   vector<edge> edges() {
     int m = (int)pos.size();
