@@ -17,7 +17,7 @@ struct mcf_graph {
     g[to].emplace_back(_edge{from, from_id, 0, -cost});
     return m;
   }
-  struct edge { int to, rev; Cap cap, flow; Cost cost;};
+  struct edge { int from, to; Cap cap, flow; Cost cost;};
   edge get_edge(int i) {
     int m = (int)pos.size();
     assert(0 <= i && i < m);
