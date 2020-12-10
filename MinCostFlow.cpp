@@ -80,7 +80,7 @@ struct MinCostFlow {
   }
   pair<Cap, Cost> flow(V_id s, V_id t, Cap flow_limit=numeric_limits<Cap>::max()) {
     add_supply(s, flow_limit);
-    add_demand(t, -flow_limit);
+    add_demand(t, flow_limit);
     Cost cost = solve().second;
     Cap flow = flow_limit-b[s];
     b[s] = b[t] = 0;
